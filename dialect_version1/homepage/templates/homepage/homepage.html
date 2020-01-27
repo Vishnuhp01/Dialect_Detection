@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>Speech</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'homepage/homepage.css' %}">
+    </head>
+    <body>
+        <div id="img-box" class="full">
+            <div class="shadow1"></div>
+            <div class="shadow2"></div>
+            <!-- <img src="{% static 'homepage/90850.jpg' %}" id="smallimg">          -->
+            <section class="homepage">
+                {% block content %}
+                <h2>Let File Speak</h2>
+                <br>
+                <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <input type="file" name="document">
+                  <button type="submit">Upload file</button>
+                </form>
+                {% if url %}
+                  <p>Uploaded file: <a href="{{ url }}">{{ url }}</a></p>
+                {% endif %}
+                <br>
+                {% if s %}
+                <h1>{{s}}</h1>
+                {% endif %}
+              {% endblock %}
+            </section>
+        </div>
+        <div class="imageList">
+            <ul>
+                <li onclick="onSpeak()">Speak</li>
+                <li onclick="onUpload()">Let File Speak</li>
+            </ul>
+        </div>
+
+        <div class="btn-box" onclick="imageSize()">
+            <span id="btnIcon">&#9776;</span>
+        </div>
+
+        <script>
+    
+            var smallImg = document.getElementById("smallimg");
+            var imgBox = document.getElementById("img-box");
+            var menuIcon = document.getElementById("btnIcon");
+
+            function onSpeak() {
+                smallImg.src="{% static 'homepage/90850.jpg' %}";
+            }
+
+            function onUpload() {
+                smallImg.src="{% static 'homepage/onUpload.png' %}";
+            }
+
+            function imageSize(){
+                if(imgBox.className == "small"){
+                    imgBox.className ="full";
+                    menuIcon.innerHTML = "&#9776"; 
+                }
+                else{
+                    imgBox.className="small";
+                    menuIcon.innerHTML = "&#10006";
+                }
+            }
+        </script>
+
+    </body>
+</html>
